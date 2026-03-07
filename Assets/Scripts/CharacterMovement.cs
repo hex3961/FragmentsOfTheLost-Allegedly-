@@ -21,6 +21,9 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+       
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150f;
         float z = Input.GetAxis("Vertical") * Time.deltaTime * 150f;
 

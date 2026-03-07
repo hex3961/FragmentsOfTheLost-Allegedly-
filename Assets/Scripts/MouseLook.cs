@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 0.0002f;
     public Transform playerBody;
     float xRotation = 0f;
     void Start()
@@ -12,11 +12,10 @@ public class MouseLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * 100f* mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * 100f* mouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSensitivity;
         playerBody.Rotate(Vector3.up * mouseX);
 
         xRotation -= mouseY;
