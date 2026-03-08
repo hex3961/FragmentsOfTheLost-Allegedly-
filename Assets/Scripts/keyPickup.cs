@@ -1,17 +1,26 @@
 using UnityEngine;
 
-public class KeyPickup : MonoBehaviour
+public class KeyPickup : MonoBehaviour, IInteractable
 {
-    public KeyCode interactKey = KeyCode.E;
-
-    private bool playerInRange = false;
     private PlayerInventory playerInventory;
+    
+    public string promptText => "Pick Up Key";
+    
+    public void OnHover() { }
+    public void OnHoverEnd() { }
+    public void Interact() 
+    { 
+        if (playerInventory != null)
+        {
+            playerInventory.hasKey = true;
+            gameObject.SetActive(false);
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
         }
     }
@@ -20,17 +29,7 @@ public class KeyPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
             playerInventory = null;
-        }
-    }
-
-    void Update()
-    {
-        if (playerInRange && playerInventory != null && Input.GetKeyDown(interactKey))
-        {
-            playerInventory.hasKey = true;
-            gameObject.SetActive(false);  // key disappears
         }
     }
 }

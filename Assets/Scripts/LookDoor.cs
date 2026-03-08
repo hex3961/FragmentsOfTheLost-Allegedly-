@@ -1,19 +1,20 @@
 using UnityEngine;
 
-public class LockDoor : MonoBehaviour
+public class LockDoor : MonoBehaviour, IInteractable
 {
-    public KeyCode interactKey = KeyCode.E;
-
-    private bool playerInRange = false;
     private PlayerInventory playerInventory;
-
+    
+    public string promptText { get; private set; }
+    
+    public void OnHover() { }
+    public void OnHoverEnd() { }
+    
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
-            Debug.Log("Lock interactable");  // Test range
+            UpdatePrompt();
         }
     }
 
@@ -21,25 +22,29 @@ public class LockDoor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
             playerInventory = null;
         }
     }
-
-    void Update()
+    
+    void UpdatePrompt()
     {
-        if (!playerInRange || playerInventory == null) return;
-
-        if (Input.GetKeyDown(interactKey))
+        if (playerInventory != null)
         {
-            if (playerInventory.hasKey)
-            {
-                UnlockAndDisappear();
-            }
-            else
-            {
-                Debug.Log("Need key to unlock.");
-            }
+            promptText = playerInventory.hasKey ? "Unlock Door [OPEN]" : "Unlock Door [NEED KEY]";
+        }
+    }
+    
+    public void Interact()
+    {
+        if (playerInventory == null) return;
+
+        if (playerInventory.hasKey)
+        {
+            UnlockAndDisappear();
+        }
+        else
+        {
+            Debug.Log("Need key to unlock this door.");
         }
     }
 

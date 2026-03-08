@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "FragmentsOfTheLost-Allegedly-.slnx"
+    "dotnet.defaultSolution": "Project1.slnx"
 }

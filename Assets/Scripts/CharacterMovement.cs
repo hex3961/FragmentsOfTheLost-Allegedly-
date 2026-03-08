@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     public CharacterController controller;
-    public float speed = 12f;
+    public float speed = 30f;
     public float gravity = -9.81f;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -31,6 +31,6 @@ public class CharacterMovement : MonoBehaviour
         controller.Move(transform.forward * z * speed * Time.deltaTime);  
 
         Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(velocity * Time.deltaTime * 5f);
+        controller.Move(velocity * Time.deltaTime * 25f);
     }
 }
